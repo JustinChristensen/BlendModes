@@ -17,5 +17,6 @@
 using namespace std;
 
 int main(int argc, char * argv[]) {
+  cout << "We're running!" << endl;
   return 0;
 }

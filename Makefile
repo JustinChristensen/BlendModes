@@ -29,12 +29,13 @@ all: $(PROGRAM)
 
 $(PROGRAM): $(SOURCES)
 	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
+	@$(BINDIR)/$(PROGRAM)
 
 test: $(TESTS)
-	g++ $(CXXFLAGS) -o $(BINDIR)/$@ $+
+	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
 	@$(BINDIR)/test
 
 clean: 
-	@-rm -rf $(PROGRAM)
+	@-rm -rf $(BINDIR)/*
 
 .PHONY: all test clean

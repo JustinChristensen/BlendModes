@@ -13,6 +13,7 @@
 using namespace std;
 
 int main(int argc, char * argv[]) {
+  cout << "We're Testing!" << endl;
   return 0;
 }
 
