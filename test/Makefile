@@ -7,6 +7,6 @@
 all: test
 
 test clean: 
-	$(MAKE) $@ -C ..
+	@$(MAKE) $@ -C ..
 
 .PHONY: all test clean

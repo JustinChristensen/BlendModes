@@ -17,7 +17,8 @@ TESTDIR  := test
 SOURCES := $(SRCDIR)/*.cpp
 TESTS := $(TESTDIR)/*.cpp
 
-INCLUDES = -I$(LIBDIR)/UnitTest++ -I$(SRCDIR)
+INCLUDES := -I$(LIBDIR)/UnitTest++ -I$(SRCDIR)
+TESTLIB := $(LIBDIR)/libUnitTest++.a
 
 CXX 	 := g++
 CXXFLAGS := $(INCLUDES) -std=c++11 
@@ -28,11 +29,11 @@ CXXFLAGS := $(INCLUDES) -std=c++11
 all: $(PROGRAM)
 
 $(PROGRAM): $(SOURCES)
-	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
+	@$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
 	@$(BINDIR)/$(PROGRAM)
 
-test: $(TESTS)
-	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
+test: $(TESTS) $(TESTLIB)
+	@$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
 	@$(BINDIR)/test
 
 clean: 
