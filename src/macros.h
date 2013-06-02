@@ -2,6 +2,7 @@
  * Blend Mode Macros
  *
  * http://stackoverflow.com/questions/5919663/how-does-photoshop-blend-two-images-together
+ * http://en.wikipedia.org/wiki/Blend_modes
  *
  * Justin Christensen
  * Thu May 30 19:00:05 2013
@@ -16,7 +17,6 @@
 
 using std::max;
 using std::min;
-using std::round;
 using std::floor;
 using std::ceil;
 
@@ -31,13 +31,14 @@ typedef double  float64;
 /**
  * ChannelBlend Macros
  *
- * Image A: Top
+ * Image A: Top (Layer being blended)
  * Image B: Bottom
  */
 #define ChannelBlend_Normal(A, B)        ((uint8)(A))
-// #define ChannelBlend_Lighten(A, B)       ((uint8)((B > A) ? B : A))
-// #define ChannelBlend_Darken(A, B)        ((uint8)((B > A) ? A : B))
-// #define ChannelBlend_Multiply(A, B)      ((uint8)(round((float)(A * B) / 255)))
+#define ChannelBlend_Lighten(A, B)       ((uint8)((A > B) ? A : B))
+#define ChannelBlend_Darken(A, B)        ((uint8)((A > B) ? B : A))
+#define ChannelBlend_Multiply(A, B)      ((uint8)((2 * (A) * (B) + 255) / 510))
+// #define ChannelBlend_ColorBurn(A, B)     ((uint8)((B == 0) ? B : max(0, (255 - ((255 - A) << 8 ) / B))))
 // #define ChannelBlend_Average(A, B)       ((uint8)((B > A) ? ceil((float)(A + B) / 2) : floor((float)(A + B) / 2)))
 // #define ChannelBlend_Add(A, B)           ((uint8)(min(255, (A + B))))
 // #define ChannelBlend_Subtract(A, B)      ((uint8)((A + B < 255) ? 0 : (A + B - 255)))
@@ -49,7 +50,6 @@ typedef double  float64;
 // #define ChannelBlend_SoftLight(A, B)     ((uint8)((B < 128) ? (2 * ((A >> 1) + 64)) * ((float)B / 255) : (255 - (2 * (255 - ((A >> 1) + 64)) * (float)(255 - B) / 255))))
 // #define ChannelBlend_HardLight(A, B)     (ChannelBlend_Overlay(B, A))
 // #define ChannelBlend_ColorDodge(A, B)    ((uint8)((A == 255) ? B : min(255, ((A << 8 ) / (255 - B)))))
-// #define ChannelBlend_ColorBurn(A, B)     ((uint8)((B == 0) ? B : max(0, (255 - ((255 - A) << 8 ) / B))))
 // #define ChannelBlend_LinearDodge(A, B)   (ChannelBlend_Add(A , B))
 // #define ChannelBlend_LinearBurn(A, B)    (ChannelBlend_Subtract(A, B))
 // #define ChannelBlend_LinearLight(A, B)   ((uint8)(B < 128) ? ChannelBlend_LinearBurn(A, (2 * B)) : ChannelBlend_LinearDodge(A, (2 * (B - 128))))
@@ -79,9 +79,10 @@ typedef double  float64;
  * and store the result in {T}
  */
 #define ColorBlend_Normal(T, A, B)       (ColorBlend_Buffer(T, A, B, Normal))
-// #define ColorBlend_Lighten(T, A, B)      (ColorBlend_Buffer(T, A, B, Lighten))
-// #define ColorBlend_Darken(T, A, B)       (ColorBlend_Buffer(T, A, B, Darken))
-// #define ColorBlend_Multiply(T, A, B)     (ColorBlend_Buffer(T, A, B, Multiply))
+#define ColorBlend_Lighten(T, A, B)      (ColorBlend_Buffer(T, A, B, Lighten))
+#define ColorBlend_Darken(T, A, B)       (ColorBlend_Buffer(T, A, B, Darken))
+#define ColorBlend_Multiply(T, A, B)     (ColorBlend_Buffer(T, A, B, Multiply))
+// #define ColorBlend_ColorBurn(T, A, B)    (ColorBlend_Buffer(T, A, B, ColorBurn))
 // #define ColorBlend_Average(T, A, B)      (ColorBlend_Buffer(T, A, B, Average))
 // #define ColorBlend_Add(T, A, B)          (ColorBlend_Buffer(T, A, B, Add))
 // #define ColorBlend_Subtract(T, A, B)     (ColorBlend_Buffer(T, A, B, Subtract))
@@ -93,7 +94,6 @@ typedef double  float64;
 // #define ColorBlend_SoftLight(T, A, B)    (ColorBlend_Buffer(T, A, B, SoftLight))
 // #define ColorBlend_HardLight(T, A, B)    (ColorBlend_Buffer(T, A, B, HardLight))
 // #define ColorBlend_ColorDodge(T, A, B)   (ColorBlend_Buffer(T, A, B, ColorDodge))
-// #define ColorBlend_ColorBurn(T, A, B)    (ColorBlend_Buffer(T, A, B, ColorBurn))
 // #define ColorBlend_LinearDodge(T, A, B)  (ColorBlend_Buffer(T, A, B, LinearDodge))
 // #define ColorBlend_LinearBurn(T, A, B)   (ColorBlend_Buffer(T, A, B, LinearBurn))
 // #define ColorBlend_LinearLight(T, A, B)  (ColorBlend_Buffer(T, A, B, LinearLight))

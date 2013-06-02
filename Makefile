@@ -21,7 +21,7 @@ INCLUDES := -I$(LIBDIR)/UnitTest++ -I$(SRCDIR)
 TESTLIB := $(LIBDIR)/libUnitTest++.a
 
 CXX 	 := g++
-CXXFLAGS := $(INCLUDES) -std=c++11 
+CXXFLAGS := $(INCLUDES) -std=c++11
 
 #------------------------------------------------------------------------------
 # Targets
