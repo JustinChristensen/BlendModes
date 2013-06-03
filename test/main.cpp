@@ -5,15 +5,13 @@
  * Fri May 31 09:31:25 2013
  */
 
-#include "UnitTest++.h"
+#include <UnitTest++/UnitTest++.h>
 #include <iostream>
-#include <stdexcept>
-#include <png.h>
 
-#include "macros.h"
+#include "blenders.h"
 
-#define NUM_CHANNELS 3 // RGB
-#define CHECK_COLORS_EQUAL(A, B)  CHECK_ARRAY_EQUAL(A, B, NUM_CHANNELS)
+#define NUM_CHANNELS 3
+#define CHECK_COLORS_EQUAL(A, B) CHECK_ARRAY_CLOSE(A, B, NUM_CHANNELS, 0.01)
 
 /**
  * The following namespaces are an attempt to spot check the methods of blending
@@ -25,164 +23,164 @@ namespace WhiteTests {
 
   TEST(White_ColorBlend_Normal) {
     uint8_t result[3];
-    ColorBlend_Normal(result, white, black);
-    CHECK_COLORS_EQUAL(result, white);
+    ColorBlend::Normal(result, white, black);
+    CHECK_COLORS_EQUAL(white, result);
   }
 
   // TEST(White_ColorBlend_Dissolve) {
   //   uint8_t result[3];
-  //   ColorBlend_Dissolve(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Dissolve(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   TEST(White_ColorBlend_Darken) {
     uint8_t result[3];
-    ColorBlend_Normal(result, white, black);
-    CHECK_COLORS_EQUAL(result, white);
+    ColorBlend::Normal(result, white, black);
+    CHECK_COLORS_EQUAL(white, result);
   }
 
   TEST(White_ColorBlend_Multiply) {
     uint8_t result[3];
-    ColorBlend_Multiply(result, white, black);
-    CHECK_COLORS_EQUAL(result, black);
+    ColorBlend::Multiply(result, white, black);
+    CHECK_COLORS_EQUAL(black, result);
   }
 
   // TEST(White_ColorBlend_ColorBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorBurn(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::ColorBurn(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_LinearBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearBurn(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::LinearBurn(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_DarkerColor) {
   //   uint8_t result[3];
-  //   ColorBlend_DarkerColor(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::DarkerColor(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
    
   TEST(White_ColorBlend_Lighten) {
     uint8_t result[3];
-    ColorBlend_Lighten(result, white, black);
-    CHECK_COLORS_EQUAL(result, white);
+    ColorBlend::Lighten(result, white, black);
+    CHECK_COLORS_EQUAL(white, result);
   }
 
   // TEST(White_ColorBlend_Screen) {
   //   uint8_t result[3];
-  //   ColorBlend_Screen(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Screen(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_ColorDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorDodge(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::ColorDodge(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_LinearDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearDodge(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::LinearDodge(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_LighterColor) {
   //   uint8_t result[3];
-  //   ColorBlend_LighterColor(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::LighterColor(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Overlay) {
   //   uint8_t result[3];
-  //   ColorBlend_Overlay(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Overlay(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_SoftLight) {
   //   uint8_t result[3];
-  //   ColorBlend_SoftLight(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::SoftLight(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_HardLight) {
   //   uint8_t result[3];
-  //   ColorBlend_HardLight(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::HardLight(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_VividLight) {
   //   uint8_t result[3];
-  //   ColorBlend_VividLight(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::VividLight(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_LinearLight) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearLight(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::LinearLight(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_PinLight) {
   //   uint8_t result[3];
-  //   ColorBlend_PinLight(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::PinLight(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_HardMix) {
   //   uint8_t result[3];
-  //   ColorBlend_HardMix(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::HardMix(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Difference) {
   //   uint8_t result[3];
-  //   ColorBlend_Difference(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Difference(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_Exclusion) {
   //   uint8_t result[3];
-  //   ColorBlend_Exclusion(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Exclusion(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
   // TEST(White_ColorBlend_Subtract) {
   //   uint8_t result[3];
-  //   ColorBlend_Subtract(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Subtract(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Divide) {
   //   uint8_t result[3];
-  //   ColorBlend_Divide(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Divide(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Hue) {
   //   uint8_t result[3];
-  //   ColorBlend_Hue(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Hue(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Saturation) {
   //   uint8_t result[3];
-  //   ColorBlend_Saturation(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Saturation(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Color) {
   //   uint8_t result[3];
-  //   ColorBlend_Color(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Color(result, white, black);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
   // TEST(White_ColorBlend_Luminosity) {
   //   uint8_t result[3];
-  //   ColorBlend_Luminosity(result, white, black);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Luminosity(result, white, black);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 };
 
@@ -224,164 +222,164 @@ namespace CyanTests {
           
   TEST(Cyan_ColorBlend_Normal) {
     uint8_t result[3];
-    ColorBlend_Normal(result, cyan, yellow_green);
-    CHECK_COLORS_EQUAL(result, normal);
+    ColorBlend::Normal(result, cyan, yellow_green);
+    CHECK_COLORS_EQUAL(normal, result);
   }
 
   // TEST(Cyan_ColorBlend_Dissolve) {
   //   uint8_t result[3];
-  //   ColorBlend_Dissolve(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, dissolve);
+  //   ColorBlend::Dissolve(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(dissolve, result);
   // }
 
   TEST(Cyan_ColorBlend_Darken) {
     uint8_t result[3];
-    ColorBlend_Darken(result, cyan, yellow_green);
-    CHECK_COLORS_EQUAL(result, darken);
+    ColorBlend::Darken(result, cyan, yellow_green);
+    CHECK_COLORS_EQUAL(darken, result);
   }
 
   TEST(Cyan_ColorBlend_Multiply) {
     uint8_t result[3];
-    ColorBlend_Multiply(result, cyan, yellow_green);
-    CHECK_COLORS_EQUAL(result, multiply);
+    ColorBlend::Multiply(result, cyan, yellow_green);
+    CHECK_COLORS_EQUAL(multiply, result);
   }
 
   // TEST(Cyan_ColorBlend_ColorBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorBurn(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, color_burn);
+  //   ColorBlend::ColorBurn(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(color_burn, result);
   // }
 
   // TEST(Cyan_ColorBlend_LinearBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearBurn(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, linear_burn);
+  //   ColorBlend::LinearBurn(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(linear_burn, result);
   // }
 
   // TEST(Cyan_ColorBlend_DarkerColor) {
   //   uint8_t result[3];
-  //   ColorBlend_DarkerColor(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, darker_color);
+  //   ColorBlend::DarkerColor(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(darker_color, result);
   // }
 
   TEST(Cyan_ColorBlend_Lighten) {
     uint8_t result[3];
-    ColorBlend_Lighten(result, cyan, yellow_green);
-    CHECK_COLORS_EQUAL(result, lighten);
+    ColorBlend::Lighten(result, cyan, yellow_green);
+    CHECK_COLORS_EQUAL(lighten, result);
   }
 
   // TEST(Cyan_ColorBlend_Screen) {
   //   uint8_t result[3];
-  //   ColorBlend_Screen(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, screen);
+  //   ColorBlend::Screen(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(screen, result);
   // }
 
   // TEST(Cyan_ColorBlend_ColorDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorDodge(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, color_dodge);
+  //   ColorBlend::ColorDodge(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(color_dodge, result);
   // }
 
   // TEST(Cyan_ColorBlend_LinearDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearDodge(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, linear_dodge);
+  //   ColorBlend::LinearDodge(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(linear_dodge, result);
   // }
 
   // TEST(Cyan_ColorBlend_LighterColor) {
   //   uint8_t result[3];
-  //   ColorBlend_LighterColor(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, lighter_color);
+  //   ColorBlend::LighterColor(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(lighter_color, result);
   // }
 
   // TEST(Cyan_ColorBlend_Overlay) {
   //   uint8_t result[3];
-  //   ColorBlend_Overlay(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, overlay);
+  //   ColorBlend::Overlay(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(overlay, result);
   // }
 
   // TEST(Cyan_ColorBlend_SoftLight) {
   //   uint8_t result[3];
-  //   ColorBlend_SoftLight(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, soft_light);
+  //   ColorBlend::SoftLight(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(soft_light, result);
   // }
 
   // TEST(Cyan_ColorBlend_HardLight) {
   //   uint8_t result[3];
-  //   ColorBlend_HardLight(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, hard_light);
+  //   ColorBlend::HardLight(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(hard_light, result);
   // }
 
   // TEST(Cyan_ColorBlend_VividLight) {
   //   uint8_t result[3];
-  //   ColorBlend_VividLight(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, vivid_light);
+  //   ColorBlend::VividLight(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(vivid_light, result);
   // }
 
   // TEST(Cyan_ColorBlend_LinearLight) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearLight(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, linear_light);
+  //   ColorBlend::LinearLight(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(linear_light, result);
   // }
 
   // TEST(Cyan_ColorBlend_PinLight) {
   //   uint8_t result[3];
-  //   ColorBlend_PinLight(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, pin_light);
+  //   ColorBlend::PinLight(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(pin_light, result);
   // }
 
   // TEST(Cyan_ColorBlend_HardMix) {
   //   uint8_t result[3];
-  //   ColorBlend_HardMix(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, hard_mix);
+  //   ColorBlend::HardMix(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(hard_mix, result);
   // }
 
   // TEST(Cyan_ColorBlend_Difference) {
   //   uint8_t result[3];
-  //   ColorBlend_Difference(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, difference);
+  //   ColorBlend::Difference(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(difference, result);
   // }
 
   // TEST(Cyan_ColorBlend_Exclusion) {
   //   uint8_t result[3];
-  //   ColorBlend_Exclusion(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, exclusion);
+  //   ColorBlend::Exclusion(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(exclusion, result);
   // }
 
   // TEST(Cyan_ColorBlend_Subtract) {
   //   uint8_t result[3];
-  //   ColorBlend_Subtract(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, subtract);
+  //   ColorBlend::Subtract(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(subtract, result);
   // }
 
   // TEST(Cyan_ColorBlend_Divide) {
   //   uint8_t result[3];
-  //   ColorBlend_Divide(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, divide);
+  //   ColorBlend::Divide(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(divide, result);
   // }
 
   // TEST(Cyan_ColorBlend_Hue) {
   //   uint8_t result[3];
-  //   ColorBlend_Hue(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, hue);
+  //   ColorBlend::Hue(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(hue, result);
   // }
 
   // TEST(Cyan_ColorBlend_Saturation) {
   //   uint8_t result[3];
-  //   ColorBlend_Saturation(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, saturation);
+  //   ColorBlend::Saturation(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(saturation, result);
   // }
 
   // TEST(Cyan_ColorBlend_Color) {
   //   uint8_t result[3];
-  //   ColorBlend_Color(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, color);
+  //   ColorBlend::Color(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(color, result);
   // }
 
   // TEST(Cyan_ColorBlend_Luminosity) {
   //   uint8_t result[3];
-  //   ColorBlend_Luminosity(result, cyan, yellow_green);
-  //   CHECK_COLORS_EQUAL(result, luminosity);
+  //   ColorBlend::Luminosity(result, cyan, yellow_green);
+  //   CHECK_COLORS_EQUAL(luminosity, result);
   // }
 };
 
@@ -423,164 +421,164 @@ namespace YellowGreenTests {
 
   TEST(YellowGreen_ColorBlend_Normal) {
     uint8_t result[3];
-    ColorBlend_Normal(result, yellow_green, cyan);
-    CHECK_COLORS_EQUAL(result, normal);
+    ColorBlend::Normal(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(normal, result);
   }
 
   // TEST(YellowGreen_ColorBlend_Dissolve) {
   //   uint8_t result[3];
-  //   ColorBlend_Dissolve(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, dissolve);
+  //   ColorBlend::Dissolve(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(dissolve, result);
   // }
 
   TEST(YellowGreen_ColorBlend_Darken) {
     uint8_t result[3];
-    ColorBlend_Darken(result, yellow_green, cyan);
-    CHECK_COLORS_EQUAL(result, darken);
+    ColorBlend::Darken(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(darken, result);
   }
 
   TEST(YellowGreen_ColorBlend_Multiply) {
     uint8_t result[3];
-    ColorBlend_Multiply(result, yellow_green, cyan);
-    CHECK_COLORS_EQUAL(result, multiply);
+    ColorBlend::Multiply(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(multiply, result);
   }
 
   // TEST(YellowGreen_ColorBlend_ColorBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorBurn(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, color_burn);
+  //   ColorBlend::ColorBurn(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(color_burn, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_LinearBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearBurn(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, linear_burn);
+  //   ColorBlend::LinearBurn(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(linear_burn, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_DarkerColor) {
   //   uint8_t result[3];
-  //   ColorBlend_DarkerColor(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, darker_color);
+  //   ColorBlend::DarkerColor(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(darker_color, result);
   // }
 
   TEST(YellowGreen_ColorBlend_Lighten) {
     uint8_t result[3];
-    ColorBlend_Lighten(result, yellow_green, cyan);
-    CHECK_COLORS_EQUAL(result, lighten);
+    ColorBlend::Lighten(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(lighten, result);
   }
 
   // TEST(YellowGreen_ColorBlend_Screen) {
   //   uint8_t result[3];
-  //   ColorBlend_Screen(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, screen);
+  //   ColorBlend::Screen(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(screen, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_ColorDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorDodge(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, color_dodge);
+  //   ColorBlend::ColorDodge(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(color_dodge, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_LinearDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearDodge(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, linear_dodge);
+  //   ColorBlend::LinearDodge(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(linear_dodge, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_LighterColor) {
   //   uint8_t result[3];
-  //   ColorBlend_LighterColor(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, lighter_color);
+  //   ColorBlend::LighterColor(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(lighter_color, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Overlay) {
   //   uint8_t result[3];
-  //   ColorBlend_Overlay(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, overlay);
+  //   ColorBlend::Overlay(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(overlay, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_SoftLight) {
   //   uint8_t result[3];
-  //   ColorBlend_SoftLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, soft_light);
+  //   ColorBlend::SoftLight(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(soft_light, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_HardLight) {
   //   uint8_t result[3];
-  //   ColorBlend_HardLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, hard_light);
+  //   ColorBlend::HardLight(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(hard_light, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_VividLight) {
   //   uint8_t result[3];
-  //   ColorBlend_VividLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, vivid_light);
+  //   ColorBlend::VividLight(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(vivid_light, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_LinearLight) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, linear_light);
+  //   ColorBlend::LinearLight(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(linear_light, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_PinLight) {
   //   uint8_t result[3];
-  //   ColorBlend_PinLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, pin_light);
+  //   ColorBlend::PinLight(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(pin_light, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_HardMix) {
   //   uint8_t result[3];
-  //   ColorBlend_HardMix(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, hard_mix);
+  //   ColorBlend::HardMix(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(hard_mix, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Difference) {
   //   uint8_t result[3];
-  //   ColorBlend_Difference(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, difference);
+  //   ColorBlend::Difference(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(difference, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Exclusion) {
   //   uint8_t result[3];
-  //   ColorBlend_Exclusion(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, exclusion);
+  //   ColorBlend::Exclusion(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(exclusion, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Subtract) {
   //   uint8_t result[3];
-  //   ColorBlend_Subtract(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, subtract);
+  //   ColorBlend::Subtract(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(subtract, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Divide) {
   //   uint8_t result[3];
-  //   ColorBlend_Divide(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, divide);
+  //   ColorBlend::Divide(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(divide, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Hue) {
   //   uint8_t result[3];
-  //   ColorBlend_Hue(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, hue);
+  //   ColorBlend::Hue(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(hue, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Saturation) {
   //   uint8_t result[3];
-  //   ColorBlend_Saturation(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, saturation);
+  //   ColorBlend::Saturation(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(saturation, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Color) {
   //   uint8_t result[3];
-  //   ColorBlend_Color(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, color);
+  //   ColorBlend::Color(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(color, result);
   // }
 
   // TEST(YellowGreen_ColorBlend_Luminosity) {
   //   uint8_t result[3];
-  //   ColorBlend_Luminosity(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(result, luminosity);
+  //   ColorBlend::Luminosity(result, yellow_green, cyan);
+  //   CHECK_COLORS_EQUAL(luminosity, result);
   // }
 };
 
@@ -588,167 +586,243 @@ namespace BlackTests {
   uint8_t black[]        = { 0, 0, 0 },
           white[]        = { 255, 255, 255 };
   
-  TEST(ColorBlend_Normal) {
+  TEST(Black_ColorBlend_Normal) {
     uint8_t result[3];
-    ColorBlend_Normal(result, black, white);
-    CHECK_COLORS_EQUAL(result, black);
+    ColorBlend::Normal(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
   }
 
-  // TEST(ColorBlend_Dissolve) {
+  // TEST(Black_ColorBlend_Dissolve) {
   //   uint8_t result[3];
-  //   ColorBlend_Dissolve(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Dissolve(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
     
-  TEST(ColorBlend_Darken) {
+  TEST(Black_ColorBlend_Darken) {
     uint8_t result[3];
-    ColorBlend_Darken(result, black, white);
-    CHECK_COLORS_EQUAL(result, black);
+    ColorBlend::Darken(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
   }
       
-  TEST(ColorBlend_Multiply) {
+  TEST(Black_ColorBlend_Multiply) {
     uint8_t result[3];
-    ColorBlend_Multiply(result, black, white);
-    CHECK_COLORS_EQUAL(result, black);
+    ColorBlend::Multiply(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
   }
 
-  // TEST(ColorBlend_ColorBurn) {
+  // TEST(Black_ColorBlend_ColorBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorBurn(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::ColorBurn(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_LinearBurn) {
+  // TEST(Black_ColorBlend_LinearBurn) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearBurn(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::LinearBurn(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  // TEST(ColorBlend_DarkerColor) {
+  // TEST(Black_ColorBlend_DarkerColor) {
   //   uint8_t result[3];
-  //   ColorBlend_DarkerColor(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::DarkerColor(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  TEST(ColorBlend_Lighten) {
+  TEST(Black_ColorBlend_Lighten) {
     uint8_t result[3];
-    ColorBlend_Lighten(result, black, white);
-    CHECK_COLORS_EQUAL(result, white);
+    ColorBlend::Lighten(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
   }
 
-  // TEST(ColorBlend_Screen) {
+  // TEST(Black_ColorBlend_Screen) {
   //   uint8_t result[3];
-  //   ColorBlend_Screen(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Screen(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_ColorDodge) {
+  // TEST(Black_ColorBlend_ColorDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_ColorDodge(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::ColorDodge(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_LinearDodge) {
+  // TEST(Black_ColorBlend_LinearDodge) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearDodge(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::LinearDodge(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_LighterColor) {
+  // TEST(Black_ColorBlend_LighterColor) {
   //   uint8_t result[3];
-  //   ColorBlend_LighterColor(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::LighterColor(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Overlay) {
+  // TEST(Black_ColorBlend_Overlay) {
   //   uint8_t result[3];
-  //   ColorBlend_Overlay(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Overlay(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_SoftLight) {
+  // TEST(Black_ColorBlend_SoftLight) {
   //   uint8_t result[3];
-  //   ColorBlend_SoftLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::SoftLight(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_HardLight) {
+  // TEST(Black_ColorBlend_HardLight) {
   //   uint8_t result[3];
-  //   ColorBlend_HardLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::HardLight(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  // TEST(ColorBlend_VividLight) {
+  // TEST(Black_ColorBlend_VividLight) {
   //   uint8_t result[3];
-  //   ColorBlend_VividLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::VividLight(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  // TEST(ColorBlend_LinearLight) {
+  // TEST(Black_ColorBlend_LinearLight) {
   //   uint8_t result[3];
-  //   ColorBlend_LinearLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::LinearLight(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  // TEST(ColorBlend_PinLight) {
+  // TEST(Black_ColorBlend_PinLight) {
   //   uint8_t result[3];
-  //   ColorBlend_PinLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::PinLight(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
 
-  // TEST(ColorBlend_HardMix) {
+  // TEST(Black_ColorBlend_HardMix) {
   //   uint8_t result[3];
-  //   ColorBlend_HardMix(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::HardMix(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Difference) {
+  // TEST(Black_ColorBlend_Difference) {
   //   uint8_t result[3];
-  //   ColorBlend_Difference(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Difference(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Exclusion) {
+  // TEST(Black_ColorBlend_Exclusion) {
   //   uint8_t result[3];
-  //   ColorBlend_Exclusion(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Exclusion(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Subtract) {
+  // TEST(Black_ColorBlend_Subtract) {
   //   uint8_t result[3];
-  //   ColorBlend_Subtract(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Subtract(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Divide) {
+  // TEST(Black_ColorBlend_Divide) {
   //   uint8_t result[3];
-  //   ColorBlend_Divide(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Divide(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Hue) {
+  // TEST(Black_ColorBlend_Hue) {
   //   uint8_t result[3];
-  //   ColorBlend_Hue(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Hue(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Saturation) {
+  // TEST(Black_ColorBlend_Saturation) {
   //   uint8_t result[3];
-  //   ColorBlend_Saturation(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Saturation(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Color) {
+  // TEST(Black_ColorBlend_Color) {
   //   uint8_t result[3];
-  //   ColorBlend_Color(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, white);
+  //   ColorBlend::Color(result, black, white);
+  //   CHECK_COLORS_EQUAL(white, result);
   // }
 
-  // TEST(ColorBlend_Luminosity) {
+  // TEST(Black_ColorBlend_Luminosity) {
   //   uint8_t result[3];
-  //   ColorBlend_Luminosity(result, black, white);
-  //   CHECK_COLORS_EQUAL(result, black);
+  //   ColorBlend::Luminosity(result, black, white);
+  //   CHECK_COLORS_EQUAL(black, result);
   // }
+};
+
+namespace ColorHelpersTests {
+  uint8_t rgb_spring_green[] = { 155, 235, 172 },
+          rgb_deep_blue[] = { 68, 51, 175 };
+
+  float hsl_spring_green[] = { 132.75, 66.6667, 76.4706 },
+        hsl_deep_blue[] = { 248.226, 54.8673, 44.3137 },
+
+        hsb_spring_green[] = { 132.75, 34.0426, 92.1569 },
+        hsb_deep_blue[] = { 248.226, 70.8571, 68.6275 },
+  
+        hcl_spring_green[] = { 132.75, 31.3725, 79.96 },
+        hcl_deep_blue[] = { 248.226, 48.6275, 27.5369 };
+
+  TEST(ColorHelpers_RGB_To_HSL) {
+    float result[3];
+
+    ColorHelpers::RGBtoHSL(rgb_spring_green, result);
+    CHECK_COLORS_EQUAL(hsl_spring_green, result);
+
+    ColorHelpers::RGBtoHSL(rgb_deep_blue, result);
+    CHECK_COLORS_EQUAL(hsl_deep_blue, result);
+  }
+
+  TEST(ColorHelpers_RGB_To_HSB) {
+    float result[3];
+  
+    ColorHelpers::RGBtoHSB(rgb_spring_green, result);
+    CHECK_COLORS_EQUAL(hsb_spring_green, result);
+
+    ColorHelpers::RGBtoHSB(rgb_deep_blue, result);
+    CHECK_COLORS_EQUAL(hsb_deep_blue, result);
+  }
+
+  TEST(ColorHelpers_RGB_To_HCL) {
+    double result[3];
+    using std::cout;
+    using std::endl;
+  
+    ColorHelpers::RGBtoHCL(rgb_spring_green, result);
+    CHECK_COLORS_EQUAL(hcl_spring_green, result);
+
+    ColorHelpers::RGBtoHCL(rgb_deep_blue, result);
+    CHECK_COLORS_EQUAL(hcl_deep_blue, result);
+  }
+
+  TEST(ColorHelpers_HSL_To_RGB) {
+    uint8_t result[3];
+
+    ColorHelpers::HSLtoRGB(hsl_spring_green, result);
+    CHECK_COLORS_EQUAL(rgb_spring_green, result);
+
+    ColorHelpers::HSLtoRGB(hsl_deep_blue, result);
+    CHECK_COLORS_EQUAL(rgb_deep_blue, result);
+  }
+
+  TEST(ColorHelpers_HSB_To_RGB) {
+    uint8_t result[3];
+
+    ColorHelpers::HSBtoRGB(hsb_spring_green, result);
+    CHECK_COLORS_EQUAL(rgb_spring_green, result);
+
+    ColorHelpers::HSBtoRGB(hsb_deep_blue, result);
+    CHECK_COLORS_EQUAL(rgb_deep_blue, result);
+  }
+
+  TEST(ColorHelpers_HCL_To_RGB) {
+    uint8_t result[3];
+
+    ColorHelpers::HCLtoRGB(hcl_spring_green, result);
+    CHECK_COLORS_EQUAL(rgb_spring_green, result);
+
+    ColorHelpers::HCLtoRGB(hcl_deep_blue, result);
+    CHECK_COLORS_EQUAL(rgb_deep_blue, result);
+  }
 };
 
 int main(int argc, char * argv[]) {

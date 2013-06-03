@@ -11,17 +11,14 @@ PROGRAM = main
 
 SRCDIR   := src
 BINDIR   := bin
-LIBDIR   := lib
 TESTDIR  := test
 
 SOURCES := $(SRCDIR)/*.cpp
 TESTS := $(TESTDIR)/*.cpp
 
-INCLUDES := -I$(LIBDIR)/UnitTest++ -I$(SRCDIR)
-TESTLIB := $(LIBDIR)/libUnitTest++.a
-
+INCLUDES := -I$(SRCDIR)
 CXX 	 := g++
-CXXFLAGS := $(INCLUDES) -std=c++11
+CXXFLAGS := $(INCLUDES) -std=c++11 -lUnitTest++
 
 #------------------------------------------------------------------------------
 # Targets
@@ -32,7 +29,7 @@ $(PROGRAM): $(SOURCES)
 	@$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
 	@$(BINDIR)/$(PROGRAM)
 
-test: $(TESTS) $(TESTLIB)
+test: $(TESTS)
 	@$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $+
 	@$(BINDIR)/test
 

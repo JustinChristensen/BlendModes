@@ -9,14 +9,8 @@
  * Thu May 30 18:44:34 2013
  */
 
-#include "macros.h"
-
-#include <stdint.h>
-#include <iostream>
-
-using namespace std;
+#include "blenders.h"
 
 int main(int argc, char * argv[]) {
-  cout << "We're running!" << endl;
   return 0;
 }
