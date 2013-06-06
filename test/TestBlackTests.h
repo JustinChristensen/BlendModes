@@ -11,12 +11,6 @@ namespace BlackTests {
     CHECK_COLORS_EQUAL(black, result);
   }
 
-  // TEST(Black_ColorBlend_Dissolve) {
-  //   uint8_t result[3];
-  //   ColorBlend::Dissolve(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
-    
   TEST(Black_ColorBlend_Darken) {
     uint8_t result[3];
     ColorBlend::Darken(result, black, white);
@@ -29,23 +23,23 @@ namespace BlackTests {
     CHECK_COLORS_EQUAL(black, result);
   }
 
-  // TEST(Black_ColorBlend_ColorBurn) {
-  //   uint8_t result[3];
-  //   ColorBlend::ColorBurn(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_ColorBurn) {
+    uint8_t result[3];
+    ColorBlend::ColorBurn(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_LinearBurn) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearBurn(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_LinearBurn) {
+    uint8_t result[3];
+    ColorBlend::LinearBurn(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
-  // TEST(Black_ColorBlend_DarkerColor) {
-  //   uint8_t result[3];
-  //   ColorBlend::DarkerColor(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_DarkerColor) {
+    uint8_t result[3];
+    ColorBlend::DarkerColor(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
   TEST(Black_ColorBlend_Lighten) {
     uint8_t result[3];
@@ -59,23 +53,23 @@ namespace BlackTests {
     CHECK_COLORS_EQUAL(white, result);
   }
 
-  // TEST(Black_ColorBlend_ColorDodge) {
-  //   uint8_t result[3];
-  //   ColorBlend::ColorDodge(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_ColorDodge) {
+    uint8_t result[3];
+    ColorBlend::ColorDodge(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_LinearDodge) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearDodge(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_LinearDodge) {
+    uint8_t result[3];
+    ColorBlend::LinearDodge(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_LighterColor) {
-  //   uint8_t result[3];
-  //   ColorBlend::LighterColor(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_LighterColor) {
+    uint8_t result[3];
+    ColorBlend::LighterColor(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
   TEST(Black_ColorBlend_Overlay) {
     uint8_t result[3];
@@ -89,59 +83,59 @@ namespace BlackTests {
     CHECK_COLORS_EQUAL(white, result);
   }
 
-  // TEST(Black_ColorBlend_HardLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::HardLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_HardLight) {
+    uint8_t result[3];
+    ColorBlend::HardLight(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
-  // TEST(Black_ColorBlend_VividLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::VividLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_VividLight) {
+    uint8_t result[3];
+    ColorBlend::VividLight(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
-  // TEST(Black_ColorBlend_LinearLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_LinearLight) {
+    uint8_t result[3];
+    ColorBlend::LinearLight(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
-  // TEST(Black_ColorBlend_PinLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::PinLight(result, black, white);
-  //   CHECK_COLORS_EQUAL(black, result);
-  // }
+  TEST(Black_ColorBlend_PinLight) {
+    uint8_t result[3];
+    ColorBlend::PinLight(result, black, white);
+    CHECK_COLORS_EQUAL(black, result);
+  }
 
-  // TEST(Black_ColorBlend_HardMix) {
-  //   uint8_t result[3];
-  //   ColorBlend::HardMix(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_HardMix) {
+    uint8_t result[3];
+    ColorBlend::HardMix(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_Difference) {
-  //   uint8_t result[3];
-  //   ColorBlend::Difference(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_Difference) {
+    uint8_t result[3];
+    ColorBlend::Difference(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_Exclusion) {
-  //   uint8_t result[3];
-  //   ColorBlend::Exclusion(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_Exclusion) {
+    uint8_t result[3];
+    ColorBlend::Exclusion(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_Subtract) {
-  //   uint8_t result[3];
-  //   ColorBlend::Subtract(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_Subtract) {
+    uint8_t result[3];
+    ColorBlend::Subtract(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
-  // TEST(Black_ColorBlend_Divide) {
-  //   uint8_t result[3];
-  //   ColorBlend::Divide(result, black, white);
-  //   CHECK_COLORS_EQUAL(white, result);
-  // }
+  TEST(Black_ColorBlend_Divide) {
+    uint8_t result[3];
+    ColorBlend::Divide(result, black, white);
+    CHECK_COLORS_EQUAL(white, result);
+  }
 
   TEST(Black_ColorBlend_Hue) {
     uint8_t result[3];

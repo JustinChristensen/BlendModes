@@ -8,7 +8,6 @@ namespace YellowGreenTests {
   
   // expected results (from photoshop)
   uint8_t * const normal        = yellow_green,
-          * const dissolve      = yellow_green,
           * const darker_color  = cyan,
           * const color_dodge   = white,
           * const linear_dodge  = white,
@@ -24,12 +23,12 @@ namespace YellowGreenTests {
           screen[]       = { 233, 245, 233 },
           overlay[]      = { 191, 235, 212 },
           soft_light[]   = { 152, 216, 212 },
-          hard_light[]   = { 211, 235, 191 },
+          hard_light[]   = { 212, 235, 191 },
           vivid_light[]  = { 255, 255, 211 },
-          linear_light[] = { 255, 255, 186 },
+          linear_light[] = { 255, 255, 187 },
           pin_light[]    = { 177, 199, 216 },
           difference[]   = { 103, 11, 103 },
-          exclusion[]    = { 137, 81, 137 },
+          exclusion[]    = { 138, 81, 138 },
           subtract[]     = { 0, 0, 103 },
           divide[]       = { 133, 242, 255 },
           hue[]          = { 190, 184, 87 },
@@ -41,12 +40,6 @@ namespace YellowGreenTests {
     ColorBlend::Normal(result, yellow_green, cyan);
     CHECK_COLORS_EQUAL(normal, result);
   }
-
-  // TEST(YellowGreen_ColorBlend_Dissolve) {
-  //   uint8_t result[3];
-  //   ColorBlend::Dissolve(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(dissolve, result);
-  // }
 
   TEST(YellowGreen_ColorBlend_Darken) {
     uint8_t result[3];
@@ -60,23 +53,23 @@ namespace YellowGreenTests {
     CHECK_COLORS_EQUAL(multiply, result);
   }
 
-  // TEST(YellowGreen_ColorBlend_ColorBurn) {
-  //   uint8_t result[3];
-  //   ColorBlend::ColorBurn(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(color_burn, result);
-  // }
+  TEST(YellowGreen_ColorBlend_ColorBurn) {
+    uint8_t result[3];
+    ColorBlend::ColorBurn(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(color_burn, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_LinearBurn) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearBurn(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(linear_burn, result);
-  // }
+  TEST(YellowGreen_ColorBlend_LinearBurn) {
+    uint8_t result[3];
+    ColorBlend::LinearBurn(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(linear_burn, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_DarkerColor) {
-  //   uint8_t result[3];
-  //   ColorBlend::DarkerColor(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(darker_color, result);
-  // }
+  TEST(YellowGreen_ColorBlend_DarkerColor) {
+    uint8_t result[3];
+    ColorBlend::DarkerColor(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(darker_color, result);
+  }
 
   TEST(YellowGreen_ColorBlend_Lighten) {
     uint8_t result[3];
@@ -90,23 +83,23 @@ namespace YellowGreenTests {
     CHECK_COLORS_EQUAL(screen, result);
   }
 
-  // TEST(YellowGreen_ColorBlend_ColorDodge) {
-  //   uint8_t result[3];
-  //   ColorBlend::ColorDodge(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(color_dodge, result);
-  // }
+  TEST(YellowGreen_ColorBlend_ColorDodge) {
+    uint8_t result[3];
+    ColorBlend::ColorDodge(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(color_dodge, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_LinearDodge) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearDodge(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(linear_dodge, result);
-  // }
+  TEST(YellowGreen_ColorBlend_LinearDodge) {
+    uint8_t result[3];
+    ColorBlend::LinearDodge(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(linear_dodge, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_LighterColor) {
-  //   uint8_t result[3];
-  //   ColorBlend::LighterColor(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(lighter_color, result);
-  // }
+  TEST(YellowGreen_ColorBlend_LighterColor) {
+    uint8_t result[3];
+    ColorBlend::LighterColor(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(lighter_color, result);
+  }
 
   TEST(YellowGreen_ColorBlend_Overlay) {
     uint8_t result[3];
@@ -120,59 +113,59 @@ namespace YellowGreenTests {
     CHECK_COLORS_EQUAL(soft_light, result);
   }
 
-  // TEST(YellowGreen_ColorBlend_HardLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::HardLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(hard_light, result);
-  // }
+  TEST(YellowGreen_ColorBlend_HardLight) {
+    uint8_t result[3];
+    ColorBlend::HardLight(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(hard_light, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_VividLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::VividLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(vivid_light, result);
-  // }
+  TEST(YellowGreen_ColorBlend_VividLight) {
+    uint8_t result[3];
+    ColorBlend::VividLight(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(vivid_light, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_LinearLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::LinearLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(linear_light, result);
-  // }
+  TEST(YellowGreen_ColorBlend_LinearLight) {
+    uint8_t result[3];
+    ColorBlend::LinearLight(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(linear_light, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_PinLight) {
-  //   uint8_t result[3];
-  //   ColorBlend::PinLight(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(pin_light, result);
-  // }
+  TEST(YellowGreen_ColorBlend_PinLight) {
+    uint8_t result[3];
+    ColorBlend::PinLight(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(pin_light, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_HardMix) {
-  //   uint8_t result[3];
-  //   ColorBlend::HardMix(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(hard_mix, result);
-  // }
+  TEST(YellowGreen_ColorBlend_HardMix) {
+    uint8_t result[3];
+    ColorBlend::HardMix(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(hard_mix, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_Difference) {
-  //   uint8_t result[3];
-  //   ColorBlend::Difference(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(difference, result);
-  // }
+  TEST(YellowGreen_ColorBlend_Difference) {
+    uint8_t result[3];
+    ColorBlend::Difference(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(difference, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_Exclusion) {
-  //   uint8_t result[3];
-  //   ColorBlend::Exclusion(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(exclusion, result);
-  // }
+  TEST(YellowGreen_ColorBlend_Exclusion) {
+    uint8_t result[3];
+    ColorBlend::Exclusion(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(exclusion, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_Subtract) {
-  //   uint8_t result[3];
-  //   ColorBlend::Subtract(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(subtract, result);
-  // }
+  TEST(YellowGreen_ColorBlend_Subtract) {
+    uint8_t result[3];
+    ColorBlend::Subtract(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(subtract, result);
+  }
 
-  // TEST(YellowGreen_ColorBlend_Divide) {
-  //   uint8_t result[3];
-  //   ColorBlend::Divide(result, yellow_green, cyan);
-  //   CHECK_COLORS_EQUAL(divide, result);
-  // }
+  TEST(YellowGreen_ColorBlend_Divide) {
+    uint8_t result[3];
+    ColorBlend::Divide(result, yellow_green, cyan);
+    CHECK_COLORS_EQUAL(divide, result);
+  }
 
   TEST(YellowGreen_ColorBlend_Hue) {
     uint8_t result[3];

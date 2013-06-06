@@ -3,6 +3,7 @@
  *
  * http://stackoverflow.com/questions/5919663/how-does-photoshop-blend-two-images-together
  * http://en.wikipedia.org/wiki/Blend_modes
+ * http://msdn.microsoft.com/en-us/library/windows/desktop/hh706313(v=vs.85).aspx
  *
  * Justin Christensen
  * Thu May 30 19:00:05 2013
@@ -228,40 +229,185 @@ namespace ColorHelpers {
  */
 namespace ChannelBlend {
   using std::sqrt;
+  using std::pow;
+  using std::round;
+  using std::max;
+  using std::min;
 
-  template <typename T = uint8_t> T Normal(T a, T b)       { return a; }
-  template <typename T = uint8_t> T Dissolve(T a, T b)     { return 0; } // This one won't be easy
-  template <typename T = uint8_t> T Darken(T a, T b)       { return a > b ? b : a; }
-  template <typename T = uint8_t> T Multiply(T a, T b)     { return (a * b + (a * b / 256 + 128)) / 256; }
-  template <typename T = uint8_t> T ColorBurn(T a, T b)    { return 0; }
-  template <typename T = uint8_t> T LinearBurn(T a, T b)   { return 0; }
-  template <typename T = uint8_t> T DarkerColor(T a, T b)  { return 0; }
-  template <typename T = uint8_t> T Lighten(T a, T b)      { return a > b ? a : b; }
-  template <typename T = uint8_t> T Screen(T a, T b)       { return 255 - ((255 - a) * (255 - b) + ((255 - a) * (255 - b) / 256 + 128)) / 256; }  
-  template <typename T = uint8_t> T ColorDodge(T a, T b)   { return 0; }
-  template <typename T = uint8_t> T LinearDodge(T a, T b)  { return 0; }
-  template <typename T = uint8_t> T LighterColor(T a, T b) { return 0; }
-  template <typename T = uint8_t> T Overlay(T a, T b)      { return 2 * b < 255 ? (2 * a * b + (2 * a * b / 256 + 128)) / 256 : 255 - ((2 * (255 - a) * (255 - b) + (2 * (255 - a) * (255 - b) / 256 + 128)) / 256); }
-              // b 199
-              // a 210
-              // .832325667
-              // 2 * (113/255) * (216/255) + (216/255) * (216/255) * (1 - 2 * (113/255))
-              // (2 * b * a + (2 * b * a / 256 + 128)) / 256 + (a + (a / 256 + 128) / 256) / 256 * (a + (a / 256 + 128) / 256) / 256 * (255 - 2 * (b + (b / 256 + 128) / 256)) 
-              // 2 * (210/255) * (1 - (199/255)) + sqrt(210/255) * (2 * (199/255) - 1)
-  template <typename T = uint8_t> T SoftLight(T a, T b)    { return 2 * a < 255 ? (2 * b * a + (2 * b * a / 256 + 128)) / 256 + (a + (a / 256 + 128) / 256) / 256 * (a + (a / 256 + 128) / 256) / 256 * (255 - 2 * (b + (b / 256 + 128) / 256)) : 0; }
-  template <typename T = uint8_t> T HardLight(T a, T b)    { return 0; }
-  template <typename T = uint8_t> T VividLight(T a, T b)   { return 0; }
-  template <typename T = uint8_t> T LinearLight(T a, T b)  { return 0; }
-  template <typename T = uint8_t> T PinLight(T a, T b)     { return 0; }
-  template <typename T = uint8_t> T HardMix(T a, T b)      { return 0; }
-  template <typename T = uint8_t> T Difference(T a, T b)   { return 0; }
-  template <typename T = uint8_t> T Exclusion(T a, T b)    { return 0; }
-  template <typename T = uint8_t> T Subtract(T a, T b)     { return 0; }
-  template <typename T = uint8_t> T Divide(T a, T b)       { return 0; }
-  // template <typename T = uint8_t> T Hue(T a, T b)          { return 0; }
-  // template <typename T = uint8_t> T Saturation(T a, T b)   { return 0; }
-  // template <typename T = uint8_t> T Color(T a, T b)        { return 0; }
-  // template <typename T = uint8_t> T Luminosity(T a, T b)   { return 0; }
+  enum RGBAChannels { RED, GREEN, BLUE, ALPHA };
+
+  // Normal Blend Mode
+  template <typename T = uint8_t> 
+  T Normal(T a, T b) { 
+    return a; 
+  }
+
+  // Darken Blend Mode
+  template <typename T = uint8_t> 
+  T Darken(T a, T b) { 
+    return a > b ? b : a; 
+  }
+
+  // Multiply Blend Mode
+  template <typename T = uint8_t> 
+  T Multiply(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+
+    return round(p * q * 255); 
+  }
+
+  // Color Burn Blend Mode
+  template <typename T = uint8_t> 
+  T ColorBurn(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+
+    return round((p > 0 ? 1 - (1 - q) / p : 1.0F) * 255); 
+  }
+
+  // Linear Burn Blend Mode
+  template <typename T = uint8_t> 
+  T LinearBurn(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+    
+    return round((p + q - 1) * 255); 
+  }
+
+  // Lighten Blend Mode
+  template <typename T = uint8_t> 
+  T Lighten(T a, T b) { 
+    return a > b ? a : b; 
+  }
+                                  
+  // Screen Blend Mode
+  template <typename T = uint8_t> 
+  T Screen(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+
+    return round((1 - (1 - p) * (1 - q)) * 255); 
+  }  
+
+  // Color Dodge Blend Mode
+  template <typename T = uint8_t> 
+  T ColorDodge(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+
+    return round(min(q / (1 - p), 1.0F) * 255); 
+  }
+
+  // Linear Dodge Blend Mode
+  template <typename T = uint8_t> 
+  T LinearDodge(T a, T b) { 
+    return min(a + b, 255); 
+  }
+
+  // Overlay Blend Mode
+  template <typename T = uint8_t> 
+  T Overlay(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+
+    return round((q < 0.5F ? 2 * p * q : 1 - 2 * (1 - p) * (1 - q)) * 255); 
+  }
+
+  // Soft Light Blend Mode
+  template <typename T = uint8_t> 
+  T SoftLight(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+    
+    return round((p < 0.5F ? 2 * p * q + pow(q, 2) * (1 - 2 * p) : 2 * q * (1 - p) + sqrt(q) * (2 * p - 1)) * 255); 
+  }
+
+  // Hard Light Blend Mode
+  template <typename T = uint8_t> 
+  T HardLight(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+    
+    return round((p < 0.5F ? 2 * p * q : 1 - 2 * (1 - p) * (1 - q)) * 255); 
+  } 
+
+  // Vivid Light Blend Mode
+  // @microsoft
+  template <typename T = uint8_t> 
+  T VividLight(T a, T b)   { 
+    float p = a / 255.0F, 
+          q = b / 255.0F, r;
+
+    if      (p == 0)            { r = 0; }
+    else if (p > 0 && p < 0.5)  { r = (2 * p + q - 1) / (2 * p); }
+    else if (p <= 0.5 && p < 1) { r = q / (2 * (1 - p)); }
+    else                        { r = 1; }
+
+    return round(r * 255); 
+  } 
+
+  // Linear Light Blend Mode
+  template <typename T = uint8_t> 
+  T LinearLight(T a, T b) { 
+    float p = a / 255.0F,
+      q = b / 255.0F;
+
+    return round(min(2 * p + q - 1, 1.0F) * 255); 
+  }
+
+  // Pin Light Blend Mode
+  template <typename T = uint8_t> 
+  T PinLight(T a, T b) { 
+    float p = a / 255.0F,
+      q = b / 255.0F;
+
+    return round((p > 0.5F ? max(q, 2 * p - 1) : min(q, 2 * p)) * 255); 
+  }
+
+  // Hard Mix Blend Mode
+  template <typename T = uint8_t> 
+  T HardMix(T a, T b) { 
+    float p = a / 255.0F,
+      q = b / 255.0F, r = p + q;
+
+    if      (r < 0.999) { r = 0; }
+    else if (r > 1.001) { r = 1; }
+    else if (q >= p)    { r = 1; }
+    else                { r = 0; }
+
+    return round(r * 255); 
+  }
+
+  // Difference Blend Mode
+  template <typename T = uint8_t> 
+  T Difference(T a, T b) { 
+    return a > b ? a - b : b - a; 
+  }
+
+  // Exclusion Blend Mode
+  template <typename T = uint8_t> 
+  T Exclusion(T a, T b) { 
+    float p = a / 255.0F,
+      q = b / 255.0F;
+
+    return round((p + q - 2 * p * q) * 255); 
+  }
+
+  // Subtract Blend Mode
+  template <typename T = uint8_t> 
+  T Subtract(T a, T b) { 
+    return max(b - a, 0); 
+  }
+
+  // Divide Blend Mode
+  template <typename T = uint8_t> 
+  T Divide(T a, T b) { 
+    float p = a / 255.0F, 
+      q = b / 255.0F; 
+    
+    return round(min(q / p, 1.0F) * 255); 
+  }
 };
 
 namespace ColorBlend {
@@ -269,6 +415,11 @@ namespace ColorBlend {
     LAYER_HUE    = 1 << 0,  
     LAYER_CHROMA = 1 << 1,
     LAYER_LUMA   = 1 << 2
+  };
+
+  enum LayerComparison {
+    LAYER_LESS_THAN,
+    LAYER_GREATER_THAN
   };
 
   template <typename T = uint8_t> 
@@ -291,19 +442,33 @@ namespace ColorBlend {
 
     ColorHelpers::HCLtoRGB(hcl, result);
   }
+
+  template <typename T = uint8_t, typename R = float> 
+  void hcl_compare(T * result, T * a, T * b, uint32_t mask) {   
+    R hcl_a[3], hcl_b[3]; 
+
+    ColorHelpers::RGBtoHCL(a, hcl_a);
+    ColorHelpers::RGBtoHCL(b, hcl_b);
+
+    if(mask == LAYER_LESS_THAN) {
+      hcl_a[2] < hcl_b[2] ? ColorHelpers::HCLtoRGB(hcl_a, result) : ColorHelpers::HCLtoRGB(hcl_b, result);  
+    }
+    else {
+      hcl_a[2] > hcl_b[2] ? ColorHelpers::HCLtoRGB(hcl_a, result) : ColorHelpers::HCLtoRGB(hcl_b, result);  
+    }
+  }
                                                                                               
   template <typename T = uint8_t> void Normal(T * result, T * a, T * b)       { buffer(result, a, b, ChannelBlend::Normal); }
-  template <typename T = uint8_t> void Dissolve(T * result, T * a, T * b)     { buffer(result, a, b, ChannelBlend::Dissolve); }
   template <typename T = uint8_t> void Darken(T * result, T * a, T * b)       { buffer(result, a, b, ChannelBlend::Darken); }
   template <typename T = uint8_t> void Multiply(T * result, T * a, T * b)     { buffer(result, a, b, ChannelBlend::Multiply); }
   template <typename T = uint8_t> void ColorBurn(T * result, T * a, T * b)    { buffer(result, a, b, ChannelBlend::ColorBurn); }
   template <typename T = uint8_t> void LinearBurn(T * result, T * a, T * b)   { buffer(result, a, b, ChannelBlend::LinearBurn); }
-  template <typename T = uint8_t> void DarkerColor(T * result, T * a, T * b)  { buffer(result, a, b, ChannelBlend::DarkerColor); }
+  template <typename T = uint8_t> void DarkerColor(T * result, T * a, T * b)  { hcl_compare(result, a, b, LAYER_LESS_THAN); }
   template <typename T = uint8_t> void Lighten(T * result, T * a, T * b)      { buffer(result, a, b, ChannelBlend::Lighten); };
   template <typename T = uint8_t> void Screen(T * result, T * a, T * b)       { buffer(result, a, b, ChannelBlend::Screen); }
   template <typename T = uint8_t> void ColorDodge(T * result, T * a, T * b)   { buffer(result, a, b, ChannelBlend::ColorDodge); }
   template <typename T = uint8_t> void LinearDodge(T * result, T * a, T * b)  { buffer(result, a, b, ChannelBlend::LinearDodge); }
-  template <typename T = uint8_t> void LighterColor(T * result, T * a, T * b) { buffer(result, a, b, ChannelBlend::LighterColor); }
+  template <typename T = uint8_t> void LighterColor(T * result, T * a, T * b) { hcl_compare(result, a, b, LAYER_GREATER_THAN); }
   template <typename T = uint8_t> void Overlay(T * result, T * a, T * b)      { buffer(result, a, b, ChannelBlend::Overlay); }
   template <typename T = uint8_t> void SoftLight(T * result, T * a, T * b)    { buffer(result, a, b, ChannelBlend::SoftLight); }
   template <typename T = uint8_t> void HardLight(T * result, T * a, T * b)    { buffer(result, a, b, ChannelBlend::HardLight); }
